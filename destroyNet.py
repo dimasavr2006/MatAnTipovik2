@@ -6,6 +6,7 @@ print("1 - 5 * np.sqrt(25 * x -88) - 3 + 32 * np.log(x)")
 print("2 - 14 * np.power(x, 2) * sin(cos(x))")
 number = int(input())
 
+#Это механизм для выбора функции
 if number == 1:
     def function(x):
         return 5 * np.sqrt(25 * x - 88) - 3 + 32 * np.log(x)  # Функция
