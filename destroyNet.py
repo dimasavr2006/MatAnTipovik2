@@ -1,11 +1,35 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def function(x):
-    return 5 * np.sqrt(25 * x -88) - 3 + 32 * np.log(x)  # Функция
+print("Введите номер функции, где:")
+print("1 - 5 * np.sqrt(25 * x -88) - 3 + 32 * np.log(x)")
+print("2 - 14 * np.power(x, 2) * sin(cos(x))")
+number = int(input())
 
-def derivative(x):
-    return (125 / (2 * np.sqrt(25 * x -88))) + (32 / x) # Производная (считал сам, нужна для дальнейших сравнений)
+if number == 1:
+    def function(x):
+        return 5 * np.sqrt(25 * x - 88) - 3 + 32 * np.log(x)  # Функция
+
+
+    def derivative(x):
+        return (125 / (2 * np.sqrt(25 * x - 88))) + (32 / x)  # Производная (считал сам, нужна для дальнейших сравнений)
+elif number == 2:
+    def function(x):
+        return 14 * np.power(x, 2) * np.sin(np.cos(x))
+
+    def derivative(x):
+        return 28 * x * np.sin(np.cos(x)) - 14 * np.power(x, 2) * np.cos(np.cos(x)) * np.sin(x)
+
+print("Введите интервал неопределённости (через пробел)")
+a, b = map(float, input().split()) # Ввод границ отрезка
+print("Введите h > 0 ")
+h = float(input() or 0.1) # Тут и далее сделано так, чтобы ничего не того не ввели в h
+
+# def function(x):
+#     return 5 * np.sqrt(25 * x -88) - 3 + 32 * np.log(x)  # Функция
+#
+# def derivative(x):
+#     return (125 / (2 * np.sqrt(25 * x -88))) + (32 / x) # Производная (считал сам, нужна для дальнейших сравнений)
 
 def rightDerivative(x, h):
     return (function(x + h) - function(x)) / h # Правая разностная производная
@@ -16,11 +40,6 @@ def leftDerivative(x, h):
 def threePointDerivative(x, h):
     return (function(x + h) - function(x - h)) / (2 * h) # Трёхузловая производная
 
-print("Введите интервал неопределённости (через пробел)")
-a, b = map(float, input().split()) # Ввод границ отрезка
-print("Введите h > 0 ")
-
-h = float(input() or 0.1) # Тут и далее сделано так, чтобы ничего не того не ввели в h
 
 # Защита от отрицательных значений h
 if h <= 0:
@@ -137,13 +156,20 @@ def all(h):
     plt.show() # Отображение + переход к следующему графику
     # Конец единой фигуры
 
-    plt.figure(figsize=(16, 8))
-    plt.plot(sliceNet, functionInSliceNet, "bo") # Тут я строю график самой функции на этом промежутке
-    plt.xlabel("sliceNet[i]")
-    plt.ylabel("functionInSliceNet[i]")
-    plt.show() # Отображение + переход к следующему графику
+    # plt.figure(figsize=(16, 8))
+    # plt.plot(sliceNet, functionInSliceNet, "bo") # Тут я строю график самой функции на этом промежутке
+    # plt.xlabel("sliceNet[i]")
+    # plt.ylabel("functionInSliceNet[i]")
+    # plt.show() # Отображение + переход к следующему графику
 
     stdForCurrentH(h) # Функция для только одного h
+
+# Строим график заранее так как не хоти каждый раз видеть один и тот же график, в функции там этот код я закомментил
+plt.figure(figsize=(16, 8))
+plt.plot(sliceNet, functionInSliceNet, "bo") # Тут я строю график самой функции на этом промежутке
+plt.xlabel("sliceNet[i]")
+plt.ylabel("functionInSliceNet[i]")
+plt.show() # Отображение + переход к следующему графику
 
 print("Для h = 0.1:")
 all(0.1)
